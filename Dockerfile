@@ -1,7 +1,7 @@
 # Build phase to create React app
 FROM node:alpine
 WORKDIR '/app'
-COPY package.json .
+COPY package*.json ./
 RUN yarn install
 COPY . .
 CMD ["yarn", "build"]

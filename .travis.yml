@@ -5,6 +5,9 @@ branches:
   only:
     - master
 
+notifications:
+  email: false
+  
 services:
   - docker
 
