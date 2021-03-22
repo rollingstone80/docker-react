@@ -1,12 +1,16 @@
 # Build phase to create React app
-FROM node:alpine as node
-WORKDIR '/app'
-COPY package.json .
+FROM node:alpine as build
+
+WORKDIR /app
+
+COPY ./package.json /app/package.json
+COPY ./package-lock.json /app/package-lock.json
+
 RUN yarn install
 COPY . .
-CMD ["yarn", "build"]
+RUN yarn build
 
 # Run phase to create nginx server
 FROM nginx
 EXPOSE 80
-COPY --from=node usr/src/app/build /usr/share/nginx/html
+COPY --from=build /app/build /usr/share/nginx/html
